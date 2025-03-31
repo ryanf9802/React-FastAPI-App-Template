@@ -1,0 +1,90 @@
+@import url("https://fonts.googleapis.com/css2?family=Public+Sans&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap");
+
+:root {
+  background-color: rgb(38, 38, 38);
+
+  color: rgb(240, 240, 240);
+
+  font-size: 18px;
+
+  --color-font-primary: #ffff;
+  --color-font-link: rgb(100, 100, 226);
+  --primary-font-family: var(--font_family-primary);
+}
+
+h1 {
+  font-size: 2.986rem;
+  font-weight: bold;
+  font-family: var(--primary-font-family);
+  color: var(--color-font-primary);
+
+  margin: 0;
+  padding: 0;
+}
+
+h2 {
+  font-size: 2.488rem;
+  font-weight: bold;
+  font-family: var(--primary-font-family);
+  margin-block: 0;
+  color: var(--color-font-primary);
+
+  margin: 0;
+  padding: 0;
+}
+
+h3 {
+  font-size: 2.074rem;
+  font-family: var(--primary-font-family);
+  margin-block: 0;
+  color: var(--color-font-primary);
+
+  margin: 0;
+  padding: 0;
+}
+
+h4 {
+  font-size: 1.728rem;
+  font-family: var(--primary-font-family);
+  color: var(--color-font-primary);
+
+  margin: 0;
+  padding: 0;
+}
+
+h5 {
+  font-size: 1.44rem;
+  font-family: var(--primary-font-family);
+  color: var(--color-font-primary);
+
+  margin: 0;
+  padding: 0;
+}
+
+h6 {
+  font-size: 1.2rem;
+  font-family: var(--primary-font-family);
+  color: var(--color-font-primary);
+
+  margin: 0;
+  padding: 0;
+}
+
+p {
+  font-family: var(--primary-font-family);
+  color: var(--color-font-primary);
+
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  font-family: var(--primary-font-family);
+  color: var(--color-font-link);
+}
+
+span {
+  font-size: 1rem;
+  font-family: var(--primary-font-family);
+}

@@ -1,0 +1,12 @@
+div.horizontal-divide-three-section {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  flex-direction: column;
+}
+
+div.horizontal-divide-three-section.div-section {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
