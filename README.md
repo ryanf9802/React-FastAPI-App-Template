@@ -51,14 +51,7 @@ app/
 │   ├─ models/              # Pydantic models for API route standardization
 │   ├─ services/            # Individual service modules in use throughout the application
 │
-├─ scripts/                 # Scripts used to manage the application.
-│                             Unless explicitly stated, these should not be directly run,
-│                             and instead should be run with commands
-│                             defined by ibcommon setup
-│
 ├─ .env                     # App-wide environment variables to configure application state.
-│                             This should not be in .gitignore, and SHOULD NOT contain any secrets!
-│
 └─
 ```
 
