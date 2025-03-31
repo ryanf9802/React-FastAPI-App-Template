@@ -20,6 +20,72 @@ More detail explaining the application itself. Provide reference resources for m
 
 ### Running the Development Server
 
+#### Requirements
+
+##### Windows
+
+Install Chocolatey with the following command:
+
+```bash
+Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+```
+
+#### UI
+
+> Run the following within the [UI](./ui) directory
+
+##### Requirements
+
+###### Windows
+
+Install Node.js with the following command:
+
+```bash
+choco install nodejs.install
+```
+
+##### Setup
+
+```bash
+npm install
+```
+
+##### Start
+
+```bash
+npm run dev
+```
+
+##### Stop
+
+##### Reset
+
+```bash
+rm -Recurse -Force node_modules
+```
+
+#### API
+
+##### Requirements
+
+Python
+
+TODO
+
+```bash
+
+```
+
+> Note: Run `python --version` to validate installation. If you do not see a version, follow the instructions to disable the microsoft store python alias and reboot.
+
+##### Setup
+
+##### Start
+
+##### Stop
+
+##### Reset
+
 ## Dependencies
 
 Detailed dependencies for the API are available in [API README.md](./api/README.md), and for the UI in [UI README.md](./ui/README.md).
