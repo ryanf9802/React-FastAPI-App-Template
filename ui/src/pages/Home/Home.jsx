@@ -4,7 +4,7 @@ import "./Home.css";
 import axiosClient from "@util/axiosClient";
 
 import { VerticalDivideTwoSection } from "@/modules/layouts";
-import { NPModalA } from "@/modules/modals";
+import { ModalA } from "@/modules/modals";
 
 import AddUserForm from "./AddUserForm/AddUserForm";
 
@@ -56,9 +56,9 @@ const Home = () => {
         }
       />
       {showAddUserModal && (
-        <NPModalA closeModal={() => setShowAddUserModal(false)}>
+        <ModalA closeModal={() => setShowAddUserModal(false)}>
           <AddUserForm refreshUsers={refreshUsers} />
-        </NPModalA>
+        </ModalA>
       )}
     </div>
   );
