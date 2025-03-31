@@ -17,6 +17,12 @@ div#home-subtext-container {
   gap: 10px;
 }
 
+div#home-right-container {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
 div#home-subtext-container ol {
   align-self: flex-start;
   display: flex;
