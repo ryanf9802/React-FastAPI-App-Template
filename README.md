@@ -66,25 +66,47 @@ rm -Recurse -Force node_modules
 
 #### API
 
+> Run the following within the [UI](./ui) directory
+
 ##### Requirements
 
 Python
-
-TODO
-
-```bash
-
-```
 
 > Note: Run `python --version` to validate installation. If you do not see a version, follow the instructions to disable the microsoft store python alias and reboot.
 
 ##### Setup
 
+1. Create Python virtual environment
+
+```bash
+python -m venv .venv
+```
+
+2. Activate the virtual environment
+
+```bash
+.venv/scrips/activate
+```
+
+3. Install pip requirements
+
+```bash
+pip install -r requirements.txt
+```
+
 ##### Start
+
+```
+fastapi dev root.py
+```
 
 ##### Stop
 
 ##### Reset
+
+```bash
+rm -Recurse -Force .venv
+```
 
 ## Dependencies
 
