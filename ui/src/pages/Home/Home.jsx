@@ -4,9 +4,11 @@ import "./Home.css";
 import axiosClient from "@util/axiosClient";
 
 import { VerticalDivideTwoSection } from "@/modules/layouts";
-import { ModalA } from "@/modules/modals";
+import { NPModalA } from "@/modules/modals";
+import { NPButtonPrimary } from "@/modules/buttons";
 
 import AddUserForm from "./AddUserForm/AddUserForm";
+import { onComponentLoad } from "@/util/hooks";
 
 const Home = () => {
   const [showAddUserModal, setShowAddUserModal] = React.useState(false);
@@ -27,9 +29,10 @@ const Home = () => {
     }
   };
 
-  React.useEffect(() => {
+  onComponentLoad(() => {
     refreshUsers();
-  }, []);
+  })
+
   return (
     <div id="home">
       <VerticalDivideTwoSection
@@ -46,19 +49,19 @@ const Home = () => {
               loadingUsers={loadingUsers}
               userListError={userListError}
             />
-            <button
+            <NPButtonPrimary
               disabled={showAddUserModal}
               onClick={() => setShowAddUserModal(true)}
             >
               Add User
-            </button>
+            </NPButtonPrimary>
           </div>
         }
       />
       {showAddUserModal && (
-        <ModalA closeModal={() => setShowAddUserModal(false)}>
+        <NPModalA closeModal={() => setShowAddUserModal(false)}>
           <AddUserForm refreshUsers={refreshUsers} />
-        </ModalA>
+        </NPModalA>
       )}
     </div>
   );
@@ -67,7 +70,7 @@ const Home = () => {
 export default Home;
 
 const HomeHeader = () => {
-  return <h1>App Template Home</h1>;
+  return <h1>AppTemplate Home</h1>;
 };
 
 const HomeSubText = () => {

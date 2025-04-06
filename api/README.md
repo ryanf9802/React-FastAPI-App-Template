@@ -1,8 +1,6 @@
-# App API
+# AppTemplate API
 
 ## Dependencies
-
-> Last Updated: March 27, 2025 by _Ryan Fitzpatrick_
 
 ### fastapi[standard]
 

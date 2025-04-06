@@ -1,8 +1,6 @@
-# App User Interface
+# AppTemplate User Interface
 
 ## Dependencies
-
-> Last Updated: March 27, 2025 by _Ryan Fitzpatrick_
 
 ### Runtime Dependencies
 

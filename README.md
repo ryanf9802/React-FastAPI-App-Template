@@ -1,112 +1,19 @@
-# App (React/Vite, Python/FastAPI)
+# AppTemplate (React/Vite, Python/FastAPI)
 
-> Helpful note: Find/Replace "App" with the application name throughout the entire templated repository!
+> Helpful note: Find/Replace "AppTemplate" with the application name throughout the entire templated repository!
 
 ## Table of Contents
 
 1. [Overview](#overview)
-2. [Development Server](#development-server)
-3. [Dependencies](#dependencies)
-4. [Project Structure](#project-structure)
-5. [External Resources](#external-resources)
+2. [Dependencies](#dependencies)
+3. [Project Structure](#project-structure)
+4. [External Resources](#external-resources)
 
 ## Overview
 
 > Quick excerpt describing the intention of the application
 
 More detail explaining the application itself. Provide reference resources for more context.
-
-## Development Server
-
-### Running the Development Server
-
-#### Requirements
-
-##### Windows
-
-Install Chocolatey with the following command:
-
-```bash
-Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
-```
-
-#### UI
-
-> Run the following within the [UI](./ui) directory
-
-##### Requirements
-
-###### Windows
-
-Install Node.js with the following command:
-
-```bash
-choco install nodejs.install
-```
-
-##### Setup
-
-```bash
-npm install
-```
-
-##### Start
-
-```bash
-npm run dev
-```
-
-##### Stop
-
-##### Reset
-
-```bash
-rm -Recurse -Force node_modules
-```
-
-#### API
-
-> Run the following within the [UI](./ui) directory
-
-##### Requirements
-
-Python
-
-> Note: Run `python --version` to validate installation. If you do not see a version, follow the instructions to disable the microsoft store python alias and reboot.
-
-##### Setup
-
-1. Create Python virtual environment
-
-```bash
-python -m venv .venv
-```
-
-2. Activate the virtual environment
-
-```bash
-.venv/scrips/activate
-```
-
-3. Install pip requirements
-
-```bash
-pip install -r requirements.txt
-```
-
-##### Start
-
-```
-fastapi dev root.py
-```
-
-##### Stop
-
-##### Reset
-
-```bash
-rm -Recurse -Force .venv
-```
 
 ## Dependencies
 
@@ -139,7 +46,14 @@ app/
 │   ├─ models/              # Pydantic models for API route standardization
 │   ├─ services/            # Individual service modules in use throughout the application
 │
+├─ scripts/                 # Scripts used to manage the application.
+│                             Unless explicitly stated, these should not be directly run,
+│                             and instead should be run with commands
+│                             defined by ibcommon setup
+│
 ├─ .env                     # App-wide environment variables to configure application state.
+│                             This should not be in .gitignore, and SHOULD NOT contain any secrets!
+│
 └─
 ```
 

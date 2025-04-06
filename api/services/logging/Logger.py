@@ -11,12 +11,13 @@ def initialize_logging():
     logger = logging.getLogger()
     logging_handler = logging.FileHandler(
         os.path.join(LogConfig.LOG_OUTPUT_DIR, LogConfig.LOG_FILE_NAME),
-        mode="a",
+        mode="w",
         encoding="utf-8",
     )
     logging_handler.setFormatter(
         logging.Formatter(
-            "%(name)s | %(levelname)s |  %(asctime)s |  %(message)s", "%H:%M:%S UTC%z"
+            "%(name)s | %(levelname)s |  %(asctime)s |\n%(message)s\n",
+            "%H:%M:%S UTC%z",
         )
     )
     logging_handler.addFilter(LogUtil.ExcludeLoggersFilter())

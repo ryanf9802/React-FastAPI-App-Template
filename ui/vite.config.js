@@ -14,6 +14,7 @@ export default defineConfig(({ mode }) => {
     },
 
     server: {
+      host: env.HOST_IP,
       port: Number(env.UI_HOST_PORT) || 9500,
     },
 

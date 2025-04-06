@@ -11,7 +11,7 @@ axiosClient.interceptors.response.use(
   (err) => {
     console.error("API error:", err.response?.data || err);
     return Promise.reject(err);
-  }
+  },
 );
 
 export default axiosClient;
