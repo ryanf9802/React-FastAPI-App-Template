@@ -1,4 +1,4 @@
-.np-button-primary {
+.button-primary {
   background-color: hsl(190, 91%, 53%);
   color: hsl(214, 85%, 19%);
 
@@ -17,11 +17,11 @@
   cursor: pointer;
 }
 
-.np-button-primary:disabled {
+.button-primary:disabled {
   background-color: hsl(191, 44%, 44%);
   cursor: default;
 }
 
-.np-button-primary:enabled:hover {
+.button-primary:enabled:hover {
   background-color: hsl(191, 100%, 45%);
 }

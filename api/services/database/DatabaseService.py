@@ -8,9 +8,8 @@ class DatabaseService:
     DB_SCHEMA_SCRIPT_DIR = "./services/database/util"
     DB_SCHEMA_SCRIPT_PATH = os.path.join(DB_SCHEMA_SCRIPT_DIR, "schema.sql")
 
-    def __init__(self, request_nuid: str) -> None:
-        self.request_nuid = request_nuid
-        self.logger = logging.getLogger(f"{__name__} | {self.request_nuid}")
+    def __init__(self) -> None:
+        self.logger = logging.getLogger(__name__)
 
     def initialize(self):
         pass
