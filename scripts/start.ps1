@@ -42,7 +42,7 @@ $apiErr = Join-Path $logDir "api_err.log"
 $apiProc = Start-Process -FilePath "powershell.exe" `
     -ArgumentList "-NoExit", "-Command", "cd '$CurrentDir\api'; .venv\Scripts\Activate.ps1; fastapi dev root.py" `
     -WorkingDirectory "$CurrentDir\api" `
-    -NoNewWindow `
+    -WindowStyle Hidden `
     -RedirectStandardOutput $apiOut `
     -RedirectStandardError $apiErr `
     -PassThru
@@ -56,19 +56,19 @@ $uiErr = Join-Path $logDir "ui_err.log"
 $uiProc = Start-Process -FilePath "powershell.exe" `
     -ArgumentList "-NoExit", "-Command", "cd '$CurrentDir\ui'; npm run dev" `
     -WorkingDirectory "$CurrentDir\ui" `
-    -NoNewWindow `
+    -WindowStyle Hidden `
     -RedirectStandardOutput $uiOut `
     -RedirectStandardError $uiErr `
     -PassThru
 
 # Save UI process ID
 $uiProc.Id | Out-File (Join-Path $pidsDir "ui.pid")
-# clear
+clear
 
 Write-Host ""
 Write-Host "`e[1;34m========== AppTemplate Started ==========`e[0m"
 Write-Host ""
-Write-Host "Both the UI and API servers will run as long as this terminal window is alive, or until the stop script is run."
+Write-Host "Both the UI and API servers will run until the stop script is run."
 Write-Host ""
 Write-Host "`e[1;32mUI Server:`e[0m    `e[4;36mhttp://${env:HOST_IP}:${env:UI_HOST_PORT}`e[0m"
 Write-Host "`e[1;32mAPI Docs:`e[0m     `e[4;36mhttp://${env:HOST_IP}:${env:API_HOST_PORT}/docs`e[0m"

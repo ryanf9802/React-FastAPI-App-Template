@@ -4,8 +4,8 @@ import "./Home.css";
 import axiosClient from "@util/axiosClient";
 
 import { VerticalDivideTwoSection } from "@/modules/layouts";
-import { NPModalA } from "@/modules/modals";
-import { NPButtonPrimary } from "@/modules/buttons";
+import { ModalA } from "@/modules/modals";
+import { ButtonPrimary } from "@/modules/buttons";
 
 import AddUserForm from "./AddUserForm/AddUserForm";
 import { onComponentLoad } from "@/util/hooks";
@@ -49,19 +49,19 @@ const Home = () => {
               loadingUsers={loadingUsers}
               userListError={userListError}
             />
-            <NPButtonPrimary
+            <ButtonPrimary
               disabled={showAddUserModal}
               onClick={() => setShowAddUserModal(true)}
             >
               Add User
-            </NPButtonPrimary>
+            </ButtonPrimary>
           </div>
         }
       />
       {showAddUserModal && (
-        <NPModalA closeModal={() => setShowAddUserModal(false)}>
+        <ModalA closeModal={() => setShowAddUserModal(false)}>
           <AddUserForm refreshUsers={refreshUsers} />
-        </NPModalA>
+        </ModalA>
       )}
     </div>
   );
@@ -120,3 +120,5 @@ const UserList = ({ users, loadingUsers, userListError }) => {
     </ul>
   );
 };
+
+

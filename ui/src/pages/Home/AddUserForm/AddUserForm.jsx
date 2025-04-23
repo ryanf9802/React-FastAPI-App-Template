@@ -1,6 +1,6 @@
 import React from "react";
 import "./AddUserForm.css";
-import { NPButtonPrimary } from "@/modules/buttons";
+import { ButtonPrimary } from "@/modules/buttons";
 import axiosClient from "@/util/axiosClient";
 
 const AddUserForm = ({ refreshUsers }) => {
@@ -66,9 +66,9 @@ const AddUserForm = ({ refreshUsers }) => {
         />
       </div>
 
-      <NPButtonPrimary type="submit" disabled={loading}>
+      <ButtonPrimary type="submit" disabled={loading}>
         {loading ? "Adding…" : "Add User"}
-      </NPButtonPrimary>
+      </ButtonPrimary>
 
       {error && <p style={{ color: "red" }}>{error}</p>}
       {success && <p>{success}</p>}

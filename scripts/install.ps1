@@ -1,5 +1,7 @@
 # AppTemplate Repository Installation Script
 
+Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process
+
 $CurrentDir = Get-Location
 
 $logDir = Join-Path $CurrentDir "logs\setup"

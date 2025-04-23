@@ -19,10 +19,10 @@ const ModalA = ({ children, closeModal }) => {
   }, [closeModal]);
 
   return ReactDOM.createPortal(
-    <div className="np-modal-a-backdrop" onClick={closeModal}>
-      <div className="np-modal-a-window" onClick={(e) => e.stopPropagation()}>
+    <div className="modal-a-backdrop" onClick={closeModal}>
+      <div className="modal-a-window" onClick={(e) => e.stopPropagation()}>
         <button
-          className="no-style clickable np-modal-a-close-btn"
+          className="no-style clickable modal-a-close-btn"
           onClick={closeModal}
         >
           {<IoMdClose size="30px" />}

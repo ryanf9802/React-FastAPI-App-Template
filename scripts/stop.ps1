@@ -1,5 +1,7 @@
 $CurrentDir = Get-Location
 
+Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process
+
 . "$CurrentDir\scripts\util\log.ps1" -ScriptID "AppTemplate Stop"
 
 $pidsDir = "$CurrentDir\logs\pids"

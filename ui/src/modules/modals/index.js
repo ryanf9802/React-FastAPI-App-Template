@@ -1,1 +1,1 @@
-export { default as ModalA } from "./np-modal-a/ModalA";
+export { default as ModalA } from "./modal-a/ModalA";
