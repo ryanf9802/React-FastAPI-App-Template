@@ -11,11 +11,6 @@ import json
 
 from services.nuid_generation.NUIDGenerator import NUIDGenerator
 
-from dotenv import load_dotenv
-
-load_dotenv(dotenv_path="../.env")
-
-
 class CORSMiddleware(starletteCORSMW):
     """
     Middleware for handling Cross-Origin Resource Sharing (CORS).
