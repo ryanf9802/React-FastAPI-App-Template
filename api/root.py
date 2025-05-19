@@ -4,18 +4,21 @@ from fastapi import APIRouter, FastAPI
 import logging
 import services.logging.Logger as Logger
 from services.auth.router import router as auth_router
+from services.database.db import Base, engine  # Import Base and engine
 
 from src.middleware import LogRequestMiddleware, RequestUIDMiddleware, CORSMiddleware
 
 Logger.initialize_logging()
 logger = logging.getLogger(__name__)
 
-
 # ------------------------------------------------------------------------------------------------------------
 
 @asynccontextmanager
 async def lifespan(_: FastAPI):
-    pass
+    # Create database tables if they don't exist
+    logger.info("Creating database tables...")
+    Base.metadata.create_all(bind=engine)
+    
     yield
     pass
 
