@@ -3,10 +3,6 @@ services:
     build:
       context: ./ui
       dockerfile: Dockerfile
-    develop:
-      watch:
-        - path: .
-          action: rebuild
     volumes:
       - "./ui:/app"
       - "/app/node_modules"
@@ -21,10 +17,6 @@ services:
     build:
       context: ./api
       dockerfile: Dockerfile
-    develop:
-      watch:
-        - path: .
-          action: rebuild
     volumes:
       - "./api:/app"
     ports:
@@ -32,6 +24,25 @@ services:
     environment:
       - PYTHONUNBUFFERED=1
       - DEV=1
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/auth_db
+    depends_on:
+      - db
+
+  db:
+    image: postgres:15
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=auth_db
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
   logs:
     image: gold66/lnav:latest
