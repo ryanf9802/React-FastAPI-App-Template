@@ -1,23 +1,23 @@
 import uuid
 
 
-class NUIDGenerator:
+class UIDGenerator:
     @staticmethod
-    def generate_request_nuid() -> str:
-        """Generate a request NUID (prefix=req)
+    def generate_request_uid() -> str:
+        """Generate a request UID (prefix=req)
 
         Returns:
-            str: A request NUID (req...)
+            str: A request UID (req...)
         """
-        return NUIDGenerator._get_nuid_prefixed(prefix="req")
+        return UIDGenerator._get_uid_prefixed(prefix="req")
 
     @staticmethod
-    def _get_nuid_prefixed(prefix: str) -> str:
+    def _get_uid_prefixed(prefix: str) -> str:
         """
-        Generate a NUID with a specified prefix.
+        Generate a UID with a specified prefix.
 
         Args:
-            prefix (str): A three-character string to prepend to the NUID.
+            prefix (str): A three-character string to prepend to the UID.
 
         Returns:
             str: A unique identifier string with the specified prefix.
@@ -29,7 +29,7 @@ class NUIDGenerator:
         if len(prefix) != 3:
             raise ValueError("Prefix must be exactly three characters.")
 
-        gen = str(uuid.uuid4())
+        gen = str(uuid.uuid4().hex)
         gen = prefix + "-" + gen
 
         return gen

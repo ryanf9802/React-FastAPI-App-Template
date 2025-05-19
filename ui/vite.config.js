@@ -1,21 +1,15 @@
-import { defineConfig, loadEnv } from "vite";
+import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import path from "path";
 
-export default defineConfig(({ mode }) => {
-  const env = loadEnv(mode, path.resolve(__dirname, ".."), "");
-  const apiUrl = `http://${env.HOST_IP}:${env.API_HOST_PORT}`;
+export default defineConfig(() => {
+  const apiUrl = `http://localhost:8000`;
 
   return {
     envDir: path.resolve(__dirname, ".."),
 
     define: {
       "import.meta.env.VITE_API_URL": JSON.stringify(apiUrl),
-    },
-
-    server: {
-      host: env.HOST_IP,
-      port: Number(env.UI_HOST_PORT) || 9500,
     },
 
     plugins: [react()],

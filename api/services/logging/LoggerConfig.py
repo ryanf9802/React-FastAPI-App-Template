@@ -8,4 +8,4 @@ IGNORE_LOGGERS = [
 
 LOG_OUTPUT_DIR = "../logs/"
 
-LOG_FILE_NAME = f"API_log.log"
+LOG_FILE_NAME = "API_log.log"
