@@ -4,8 +4,11 @@ LOGGING_LEVEL = logging.DEBUG
 
 IGNORE_LOGGERS = [
     "watchfiles",
+    "uvicorn.error",
+    "python_multipart.multipart",
+    "passlib.handlers.bcrypt",
 ]
 
-LOG_OUTPUT_DIR = "../logs/"
+LOG_OUTPUT_DIR = "/app/logs/"
 
-LOG_FILE_NAME = "API_log.log"
+LOG_FILE_NAME = "log.log"

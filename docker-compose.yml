@@ -3,23 +3,47 @@ services:
     build:
       context: ./ui
       dockerfile: Dockerfile
-    ports:
-      - "9500:9500"
+    develop:
+      watch:
+        - path: .
+          action: rebuild
     volumes:
       - "./ui:/app"
       - "/app/node_modules"
+    ports:
+      - "9500:9500"
     environment:
-      NODE_ENV: development
-    command: npm run dev
+      - DEV=1
+    depends_on:
+      - api
 
   api:
     build:
       context: ./api
       dockerfile: Dockerfile
-    ports:
-      - "8000:8000"
+    develop:
+      watch:
+        - path: .
+          action: rebuild
     volumes:
       - "./api:/app"
+    ports:
+      - "8000:8000"
     environment:
-      PYTHONUNBUFFERED: 1
-    command: uvicorn root:app --reload --host 0.0.0.0 --port 8000
+      - PYTHONUNBUFFERED=1
+      - DEV=1
+
+  logs:
+    image: gold66/lnav:latest
+    volumes:
+      - ./api/logs:/logs:ro
+    stdin_open: true
+    tty: true
+    entrypoint: ["lnav", "/logs/API_log.log"]
+    depends_on:
+      - api
+    profiles:
+      - logs
+
+volumes:
+  db_data:

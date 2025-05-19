@@ -12,6 +12,10 @@ export default defineConfig(() => {
       "import.meta.env.VITE_API_URL": JSON.stringify(apiUrl),
     },
 
+    server: {
+      allowedHosts: ["localhost"]
+    },
+
     plugins: [react()],
     resolve: {
       alias: {

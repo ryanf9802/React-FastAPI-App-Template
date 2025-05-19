@@ -1,13 +1,10 @@
 from starlette.middleware.cors import CORSMiddleware as starletteCORSMW
 from starlette.middleware.base import BaseHTTPMiddleware
-from starlette.responses import Response
 from fastapi import Request
-import os
 
 import logging
 from typing import Callable
 import time
-import json
 
 from services.uid_generation.UIDGenerator import UIDGenerator
 
@@ -25,12 +22,8 @@ class CORSMiddleware(starletteCORSMW):
         allowed_origins (list[str]): A list of origins allowed to access the resources.
     """
 
-    HOST_IP = os.getenv("HOST_IP")
-    UI_HOST_PORT = os.getenv("UI_HOST_PORT")
-
     allowed_origins = [
-        f"http://{HOST_IP}:{UI_HOST_PORT}",
-        f"http://localhost:{UI_HOST_PORT}",
+        "http://localhost:9500",
     ]
 
     def __init__(self, app):
@@ -74,7 +67,7 @@ class RequestUIDMiddleware(BaseHTTPMiddleware):
     request.
 
     This middleware generates a unique identifier for every request using the
-    UIDGenerator and attaches it to the request's state. This is useful for
+    NUIDGenerator and attaches it to the request's state. This is useful for
     tracking, logging, or debugging purposes throughout the lifecycle of the
     request.
 
@@ -108,94 +101,39 @@ class LogRequestMiddleware(BaseHTTPMiddleware):
 
     This middleware logs:
     - Request method, URL path, and client host at the start of the request.
-    - Response body and duration after processing the request.
-    - Errors or warnings based on the response's status code and body content.
-
-    It captures the full response body by consuming the response's body iterator,
-    logs it safely (handling binary data), and re-creates the response to ensure
-    it can still be sent to the client.
+    - Response status code and duration after processing the request.
 
     Log levels:
     - DEBUG: Initial request information.
-    - INFO: Successful responses with a valid body.
+    - INFO: Successful responses (status < 500).
     - ERROR: Responses with status_code >= 500.
-
-    Attributes:
-        dispatch (Callable): Intercepts each request/response cycle.
     """
 
     async def dispatch(self, request: Request, call_next: Callable):
         request_nuid = request.state.nuid
         logger = logging.getLogger(f"middleware.LogRequestMiddleware | {request_nuid}")
 
-        start_time = time.time()
         client_host = request.client.host if request.client else "unknown"
+        logger.debug(f'{request.method} "{request.url.path}" FROM {client_host}')
 
-        logger.debug(f'{request.method} "{request.url.path}" FROM "{client_host}"')
-
-        # Continue processing the request
+        start_time = time.time()
         response = await call_next(request)
-
-        # Capture response body from streaming iterator
-        body = b""
-        async for chunk in response.body_iterator:
-            body += chunk
-
-        # Decode body for logging (handle potential binary data safely)
-        try:
-            body_str = body.decode("utf-8")
-        except UnicodeDecodeError:
-            body_str = "<Binary Content>"
-
         duration = time.time() - start_time
+        status_code = response.status_code
 
-        try:
-            body_obj = json.loads(body_str)
-
-            if isinstance(body_obj, dict) and "status_code" in body_obj:
-                if body_obj["status_code"] >= 500:
-                    logger.error(
-                        f'{request.method} "{request.url.path}" FROM "{client_host}" - RESPONSE '
-                        f"Duration={duration:.4f}s Body={body_str}"
-                    )
-                else:
-                    logger.info(
-                        f'{request.method} "{request.url.path}" FROM "{client_host}" - RESPONSE '
-                        f"Duration={duration:.4f}s Body={body_str}"
-                    )
-            else:
-                # Log as info if body is not a dict with status_code
-                logger.info(
-                    f'{request.method} "{request.url.path}" FROM "{client_host}" - RESPONSE '
-                    f"Duration={duration:.4f}s Body={body_str}"
-                )
-
-        except KeyError:
-            if response.status_code >= 500:
-                logger.error(
-                    f'{request.method} "{request.url.path}" FROM "{client_host}" - RESPONSE '
-                    f"Duration={duration:.4f}s Status Code={response.status_code} Body={body_str}"
-                )
-            else:
-                logger.info(
-                    f'{request.method} "{request.url.path}" FROM "{client_host}" - RESPONSE '
-                    f"Duration={duration:.4f}s Body={body_str}"
-                )
-
-        except Exception as e:
-            logger.debug(f"Error converting response body to dictionary: {e}")
-            logger.info(
-                f'{request.method} "{request.url.path}" FROM "{client_host}" - RESPONSE '
-                f"Duration={duration:.4f}s Body={body_str}"
+        log_fn = logger.error if status_code >= 500 else logger.info
+        if hasattr(request.state, "user_id"):
+            log_fn(
+                f'{request.method} "{request.url.path}" '
+                f"FROM {client_host} Status={status_code} "
+                f"Duration={duration:.4f}s "
+                f'User="{request.state.user_id}"'
+            )
+        else:
+            log_fn(
+                f'{request.method} "{request.url.path}" '
+                f"FROM {client_host} Status={status_code} "
+                f"Duration={duration:.4f}s"
             )
 
-        # Create new response with corrected Content-Length
-        new_response = Response(
-            content=body,
-            status_code=response.status_code,
-            headers={**response.headers, "Content-Length": str(len(body))},
-            media_type=response.media_type,
-            background=response.background,
-        )
-
-        return new_response
+        return response

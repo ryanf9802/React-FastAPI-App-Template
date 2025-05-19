@@ -1,7 +1,9 @@
-from fastapi import FastAPI
+from contextlib import asynccontextmanager
+from fastapi import APIRouter, FastAPI
 
 import logging
 import services.logging.Logger as Logger
+from services.auth.router import router as auth_router
 
 from src.middleware import LogRequestMiddleware, RequestUIDMiddleware, CORSMiddleware
 
@@ -11,23 +13,21 @@ logger = logging.getLogger(__name__)
 
 # ------------------------------------------------------------------------------------------------------------
 
-# All routers must be added here to be present in the application
+@asynccontextmanager
+async def lifespan(_: FastAPI):
+    pass
+    yield
+    pass
 
-app = FastAPI()
+app = FastAPI(lifespan=lifespan)
+api_router = APIRouter(prefix="/api")
 
-# ------------------------------------------------------------------------------------------------------------
-
-# Note that for some reason, the last middleware added here is the first applied in request logic
+api_router.include_router(auth_router)
 
 app.add_middleware(LogRequestMiddleware)
 app.add_middleware(RequestUIDMiddleware)
 app.add_middleware(CORSMiddleware)
 
-# ------------------------------------------------------------------------------------------------------------
+app.include_router(api_router)
 
 logger.info("FastAPI Server Initialized")
-
-
-@app.get("/", response_model=str, status_code=200)
-def root():
-    return "Root route"
