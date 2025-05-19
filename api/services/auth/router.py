@@ -1,5 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException, status
-from sqlalchemy.orm import Session
+from fastapi import APIRouter, HTTPException, status
 from sqlalchemy.exc import IntegrityError
 
 from services.database import get_session
@@ -8,10 +7,6 @@ from services.auth.schemas import UserCreate, UserResponse
 from services.auth.password import get_password_hash
 
 router = APIRouter(prefix="/auth", tags=["Auth"])
-
-@router.get("/")
-def auth_root():
-    return "Auth Root"
 
 @router.post("/register", response_model=UserResponse, status_code=status.HTTP_201_CREATED)
 async def register_user(user: UserCreate):
