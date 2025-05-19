@@ -17,7 +17,6 @@ logger = logging.getLogger(__name__)
 
 @asynccontextmanager
 async def lifespan(_: FastAPI):
-    # Create database tables on application startup
     Base.metadata.create_all(bind=engine)
     logger.info("Database tables created")
     
